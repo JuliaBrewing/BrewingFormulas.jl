@@ -46,7 +46,7 @@ include("yeast.jl")
 
 # models
 export AbstractModel, BitternessModel, ColorModel, ABVModel, RefractometerModel
-export Tinseth, Rager, Morey, Daniels, Mosher, Noonan, Balling, SimpleABV
+export Tinseth, Rager, Morey, Daniels, Mosher, DrueyDaniels, DrueyNoonan, Balling, SimpleABV
 export TerrillLinear, TerrillCubic, DEFAULT_MODELS
 export SugarGravity, SugarGravityQuad
 

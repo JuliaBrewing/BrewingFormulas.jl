@@ -8,6 +8,11 @@ The malt color units, `MCU = mass(lb) × color(°L) / volume(gal)`, of a `mass` 
 given `color` (in `°L`, `SRM` or `EBC`) in a `volume` of wort. With a `bill`, an iterable of
 `mass => color` pairs, the sum of the MCUs of the grains. MCUs are additive, unlike SRM.
 
+# References
+
+- D. Morey, "Approximating SRM Beer Color of Homebrew Based on Recipe Formulation", 2015,
+  <https://bwelman.github.io/bier/beer-color/beer-color.html>.
+
 ```julia
 julia> mcu(4u"kg", 3u"°L", 20u"L")
 5.007242671211599
@@ -36,7 +41,8 @@ srm(mcu::Real) = srm(DEFAULT_MODELS.color, mcu)
 srm(::Morey, mcu::Real) = (mcu > 0 ? 1.4922 * mcu^0.6859 : 0.0) * u"SRM"
 srm(::Daniels, mcu::Real) = (0.2mcu + 8.4) * u"SRM"
 srm(::Mosher, mcu::Real) = (0.3mcu + 4.7) * u"SRM"
-srm(::Noonan, mcu::Real) = (mcu > 0 ? max(0.0, 15.03 * mcu^0.27 - 15.53) : 0.0) * u"SRM"
+srm(::DrueyDaniels, mcu::Real) = (mcu > 0 ? max(0.0, 1.73 * mcu^0.64 - 0.27) : 0.0) * u"SRM"
+srm(::DrueyNoonan, mcu::Real) = (mcu > 0 ? max(0.0, 15.03 * mcu^0.27 - 15.53) : 0.0) * u"SRM"
 
 """
     wort_color([model = Morey()], bill, volume)
@@ -65,6 +71,12 @@ const _SRM_RGB = (
 An `(r, g, b)` tuple of integers in `0:255` representing a beer of the given `color` (in
 `SRM`, `EBC` or `°L`), interpolated in a table from 1 to 40 SRM; colors outside this range
 are clamped to it.
+
+# References
+
+- The table comes from the Python BrewQuiver, which gives no source for it, and no source
+  was found. For a physically based alternative, see A. J. deLange's spectral model of beer
+  color, implemented e.g. in <https://pypi.org/project/olfarve/>.
 """
 function srm_rgb(color::ColorQuantity)
     v = clamp(_val(u"SRM", color), 1.0, 40.0)

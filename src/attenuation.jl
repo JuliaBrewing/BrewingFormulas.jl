@@ -4,7 +4,16 @@
     ETHANOL_RELATIVE_DENSITY
 
 Density of ethanol relative to water, both at 20 °C: `0.78924 / 0.998203 ≈ 0.7907`, used to
-convert alcohol by weight into alcohol by volume.
+convert alcohol by weight into alcohol by volume. Hall (1995) uses `0.794`, the specific
+gravity of ethanol at 15 °C, which gives ABVs about 0.4% (relative) lower.
+
+# References
+
+- Density of ethanol at 20 °C, 0.78924 g/mL: CRC Handbook of Chemistry and Physics.
+- G. S. Kell, "Density, thermal expansivity, and compressibility of liquid water from 0° to
+  150 °C", *J. Chem. Eng. Data* 20 (1975) 97–105, <https://doi.org/10.1021/je60064a005>.
+- M. L. Hall, "Brew By the Numbers — Add Up What's in Your Beer", *Zymurgy*, Summer 1995,
+  pp. 54–61.
 """
 const ETHANOL_RELATIVE_DENSITY = 0.78924 / 0.998203
 
@@ -34,6 +43,12 @@ apparent_attenuation(og, fg; eq::Equivalence = DEFAULT_EQUIVALENCE) =
 
 The real extract `RE = 0.1808 OE + 0.8192 AE` (Balling), in °P, from the original gravity
 `og` and the apparent final gravity `fg`.
+
+# References
+
+- J. De Clerck, *A Textbook of Brewing*, Chapman & Hall, 1958, after C. J. N. Balling.
+- M. L. Hall, "Brew By the Numbers — Add Up What's in Your Beer", *Zymurgy*, Summer 1995,
+  pp. 54–61 (Equation 11).
 """
 real_extract(og, fg; eq::Equivalence = DEFAULT_EQUIVALENCE) =
     _real_extract(_plato(og, eq), _plato(fg, eq)) * u"°P"
@@ -78,6 +93,12 @@ final_gravity(og, attenuation; eq::Equivalence = DEFAULT_EQUIVALENCE) =
 The alcohol by weight, from the original gravity `og` and the apparent final gravity `fg`,
 by Balling's relation `ABW = (OE - RE) / (2.0665 - 0.010665 OE)`.
 
+# References
+
+- J. De Clerck, *A Textbook of Brewing*, Chapman & Hall, 1958, after C. J. N. Balling.
+- M. L. Hall, "Brew By the Numbers — Add Up What's in Your Beer", *Zymurgy*, Summer 1995,
+  pp. 54–61 (Equation 16).
+
 ```julia
 julia> abw(15u"°P", 3.83u"°P")
 4.799551015591193 %
@@ -106,6 +127,8 @@ with the given [`ABVModel`](@ref):
 - [`Balling`](@ref): `ABV = ABW × FG / ρ_ethanol`;
 - [`SimpleABV`](@ref): `ABV = 131.25 (OG - FG)`, gravities in sg.
 
+See the models for the references.
+
 ```julia
 julia> abv(1.050u"sg", 1.010u"sg")
 5.316690074810317 %
@@ -130,7 +153,17 @@ abv(::SimpleABV, og, fg; eq::Equivalence = DEFAULT_EQUIVALENCE) =
 
 The energy, in `kcal`, of a `volume` of beer with original gravity `og` and apparent final
 gravity `fg`: `FG × V(mL) × (6.9 ABW + 4.0 (RE - 0.1)) / 100`, with ABW in percent by
-weight and RE in °P.
+weight and RE in °P: 6.9 kcal per gram of alcohol and 4 kcal per gram of real extract less
+0.1% of ash, per 100 g of beer, as in the Python BrewQuiver.
+
+# References
+
+- G. Oliver (ed.), *The Oxford Companion to Beer*, Oxford University Press, 2011, entry
+  "calories", as quoted in "Counting Calories & Carbs", *Brew Your Own*,
+  <https://byo.com/articles/counting-calories-carbs/>.
+- M. L. Hall, "Brew By the Numbers — Add Up What's in Your Beer", *Zymurgy*, Summer 1995,
+  pp. 54–61, Equation 22, gives a variant per 12 US fl oz,
+  `3.55 FG (4.08 RE + 7.1 ABW)`, which also counts the protein.
 
 ```julia
 julia> calories(15u"°P", 3.83u"°P", 330u"mL")

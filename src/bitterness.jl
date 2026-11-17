@@ -8,7 +8,7 @@
     utilization([model = Tinseth()], gravity, time; eq = SugarGravityQuad())
 
 The fraction of alpha acids isomerized in a wort of the given (boil) `gravity` after boiling
-for `time`, with the given [`BitternessModel`](@ref).
+for `time`, with the given [`BitternessModel`](@ref); see the models for the references.
 
 ```julia
 julia> utilization(1.050u"sg", 60u"minute")
@@ -59,7 +59,7 @@ isomerized_alpha_acids(model::BitternessModel, mass::Unitful.Mass, alpha, gravit
     ibu([model = Tinseth()], mass, alpha, gravity, time, volume; factor = 1, eq = SugarGravityQuad())
 
 The bitterness, in `IBU`, of a `volume` of wort with the mass `isoalpha` of iso-alpha acids,
-1 IBU being 1 mg/L. In the second form, the iso-alpha acids come from a `mass` of hops with
+1 IBU being taken as 1 mg/L, the usual approximation. In the second form, the iso-alpha acids come from a `mass` of hops with
 alpha acid content `alpha` boiled for `time` in a wort of the given `gravity`, as in
 [`isomerized_alpha_acids`](@ref).
 

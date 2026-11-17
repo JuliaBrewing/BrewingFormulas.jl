@@ -35,7 +35,9 @@ _water_mass(x::Unitful.Volume) = x * WATER_DENSITY_20C
     extract_mass(volume, gravity; eq = SugarGravityQuad())
 
 The mass of extract dissolved in a `volume` of solution with the given `gravity`, both at
-20 °C: `volume × sg × ρw × P / 100`, where `ρw` is the density of water at 20 °C.
+20 °C: `volume × sg × ρw × P / 100`, where `ρw` is the density of water at 20 °C. This
+follows from the definitions of degrees Plato (percentage of extract by mass) and of specific
+gravity (density relative to water, both at 20 °C).
 
 ```julia
 julia> extract_mass(20u"L", 12u"°P")
@@ -135,6 +137,17 @@ _hydrometer_poly(tf) = 1.313454 - 0.132674tf + 2.057793e-3tf^2 - 2.627634e-6tf^3
 The gravity corrected from a hydrometer `reading` taken at `temperature`, for a hydrometer
 calibrated at `calibration`, in the unit of `reading`.
 
+The correction is the difference, in thousandths of sg, of the cubic fit
+`1.313454 - 0.132674 T + 2.057793e-3 T² - 2.627634e-6 T³` (`T` in °F) at the two
+temperatures. The fit (R² = 0.999969, from 0 to 212 °F) is to the density of water from the
+CRC Handbook of Chemistry and Physics, relative to its value at 59 °F; taking differences
+allows any calibration temperature.
+
+# References
+
+- C. Lyons, "Hydrometer Temperature Corrections", Homebrew Digest #963, 7 September 1992,
+  <https://brewery.org/library/HydromCorr0992.html>.
+
 ```julia
 julia> hydrometer_correction(1.046u"sg", 30u"°C")
 1.0484709600383841 sg
@@ -155,6 +168,12 @@ end
 
 Points per pound per gallon of sucrose, `46.214`: one pound of sucrose in one US gallon of
 solution gives a specific gravity of `1.046214`.
+
+# References
+
+- About 46 PPG is the value commonly given for sucrose in brewing references; the source of
+  the precise value 46.214, carried over from usual brewing software, was not found. (The
+  extract model of this package, with `SugarGravityQuad`, gives about 46.18.)
 """
 const SUCROSE_PPG = 46.214
 

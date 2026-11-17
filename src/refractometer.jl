@@ -6,7 +6,9 @@
     refractometer_gravity(reading; wcf = 1.04)
 
 The gravity, in `°P`, of an unfermented wort from the refractometer `reading` (in `Brix`),
-corrected by the wort correction factor `wcf`.
+corrected by the wort correction factor `wcf`. The default 1.04 is the value commonly used
+(and the factor for wort in the Python BrewQuiver); it is best determined for each
+refractometer against a hydrometer.
 """
 refractometer_gravity(reading::SugarContents; wcf::Real = 1.04) =
     _val(u"°P", reading) / wcf * u"°P"
@@ -18,6 +20,12 @@ The apparent final gravity, in `sg`, estimated from the refractometer readings (
 of the wort before fermentation, `initial`, and of the fermented beer, `final`, both
 corrected by the wort correction factor `wcf`, with Sean Terrill's fits
 ([`TerrillCubic`](@ref) or [`TerrillLinear`](@ref)).
+
+# References
+
+- S. Terrill, "Refractometer FG Results", 7 April 2011,
+  <http://seanterrill.com/2011/04/07/refractometer-fg-results/> (cited by the Python
+  BrewQuiver).
 
 ```julia
 julia> refractometer_final_gravity(12u"Brix", 6.5u"Brix")

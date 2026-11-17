@@ -6,6 +6,11 @@
 The density of water, in `kg/L`, at the given `temperature`, by Kell's formula (1975),
 valid from 0 to 150 °C.
 
+# References
+
+- G. S. Kell, "Density, thermal expansivity, and compressibility of liquid water from 0° to
+  150 °C", *J. Chem. Eng. Data* 20 (1975) 97–105, <https://doi.org/10.1021/je60064a005>.
+
 ```julia
 julia> water_density(20u"°C")
 0.9982041322005837 kg L⁻¹

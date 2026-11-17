@@ -41,12 +41,18 @@ in `DEFAULT_MODELS` is used.
 |---|---|---|
 | sugar contents ↔ gravity | `SugarGravityQuad`, `SugarGravity` (keyword `eq`) | `SugarGravityQuad()` |
 | hop utilization / IBU | `Tinseth`, `Rager` | `Tinseth()` |
-| MCU → SRM | `Morey`, `Daniels`, `Mosher`, `Noonan` | `Morey()` |
+| MCU → SRM | `Morey`, `Daniels`, `Mosher`, `DrueyDaniels`, `DrueyNoonan` | `Morey()` |
 | alcohol by volume | `Balling`, `SimpleABV` | `Balling()` |
 | refractometer final gravity | `TerrillCubic`, `TerrillLinear` | `TerrillCubic()` |
 
 New models are added by subtyping, e.g. `struct MyModel <: BitternessModel end`, and
 defining `BrewingFormulas.utilization(::MyModel, gravity, time; eq)`.
+
+## References
+
+Each formula is credited in its docstring, and [`REFERENCES.md`](REFERENCES.md) lists all the
+sources, with notes on which ones were credited in the Python BrewQuiver and how each
+attribution was checked.
 
 ## Contents
 

@@ -32,7 +32,9 @@ const _M_CO2 = 44.0095
 """
     co2_yield(sugar)
 
-Mass of CO₂ produced per mass of the priming `sugar`, assuming full fermentation.
+Mass of CO₂ produced per mass of the priming `sugar`, assuming full fermentation, from the
+stoichiometry of the fermentation and the molar masses of the sugar and of CO₂ (IUPAC
+standard atomic weights).
 """
 co2_yield(s::PrimingSugar) = s.yield
 co2_yield(::Sucrose) = 4 * _M_CO2 / 342.2965
@@ -45,6 +47,11 @@ co2_yield(::CornSugar) = 2 * _M_CO2 / 198.171
 The CO₂, in `vols`, remaining dissolved in a beer after fermentation at `temperature` (the
 highest temperature reached after fermentation), at 1 atm:
 `3.0378 - 0.050062 T + 0.00026555 T²`, with `T` in °F.
+
+# References
+
+- M. L. Hall, "Brew By the Numbers — Add Up What's in Your Beer", *Zymurgy*, Summer 1995,
+  pp. 54–61, Equation 26.
 
 ```julia
 julia> residual_co2(20u"°C")
@@ -62,6 +69,16 @@ end
 The mass, in `g`, of priming `sugar` to bring a `volume` of beer, fermented up to
 `temperature`, to the `target` carbonation (in `vols`), using 1 vols = 1.977 g/L of CO₂.
 
+The mass of sugar follows from the stoichiometry of its fermentation (see
+[`co2_yield`](@ref)). Hall's formula `PS = 15.195 V(gal) (CD - CD₀)`, in grams of corn sugar,
+corresponds to anhydrous glucose; here [`CornSugar`](@ref) is dextrose monohydrate, as
+usually sold, which needs about 10% more. Use [`Glucose`](@ref) for Hall's values.
+
+# References
+
+- M. L. Hall, "Brew By the Numbers — Add Up What's in Your Beer", *Zymurgy*, Summer 1995,
+  pp. 54–61, Equation 29.
+
 ```julia
 julia> priming_sugar(CornSugar(), 20u"L", 2.5u"vols", 20u"°C")
 145.86469026359262 g
@@ -78,8 +95,8 @@ end
     carbonation_pressure(level, temperature)
 
 The gauge pressure, in `psi`, of CO₂ to force carbonate a beer at `temperature` to the
-given carbonation `level` (in `vols`), from the usual fit of the solubility charts
-(`T` in °F, `V` in vols, `P` in psig):
+given carbonation `level` (in `vols`), from the fit of the carbonation charts used by most
+brewing calculators (`T` in °F, `V` in vols, `P` in psig):
 
     P = -16.6999 - 0.0101059 T + 0.00116512 T² + 0.173354 T V + 4.24267 V - 0.0684226 V².
 
@@ -87,6 +104,12 @@ given carbonation `level` (in `vols`), from the usual fit of the solubility char
 julia> carbonation_pressure(2.5u"vols", 38u"°F")
 11.246172830000003 psi
 ```
+
+# References
+
+- No primary source for this fit was found; it is the "standard force carbonation
+  equation" of many brewing calculators, a fit to the published carbonation charts (CO₂
+  solubility tables such as those of the ASBC).
 """
 function carbonation_pressure(level::CarbonationQuantity, temperature::Unitful.Temperature)
     t, v = _val(u"°F", temperature), _val(u"vols", level)

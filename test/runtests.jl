@@ -106,7 +106,9 @@ end
     @test srm(10) == srm(Morey(), 10)
     @test srm(Daniels(), 10) ≈ 10.4u"SRM"
     @test srm(Mosher(), 10) ≈ 7.7u"SRM"
-    @test srm(Noonan(), 10) ≈ (15.03 * 10^0.27 - 15.53) * u"SRM"
+    @test srm(DrueyDaniels(), 10) ≈ (1.73 * 10^0.64 - 0.27) * u"SRM"
+    @test srm(DrueyNoonan(), 10) ≈ (15.03 * 10^0.27 - 15.53) * u"SRM"
+    @test srm(DrueyNoonan(), 0.5) == 0u"SRM"
     @test srm(0) == 0u"SRM"
     @test wort_color([1u"lb" => 10u"°L"], 1u"gal") ≈ srm(10)
     @test srm_rgb(1u"SRM") == (255, 230, 153)

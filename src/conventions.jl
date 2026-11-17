@@ -9,7 +9,14 @@ const CarbonationQuantity = UnitfulBrewing.Carbonation
     DEFAULT_EQUIVALENCE
 
 The equivalence between sugar contents (`°P`) and specific gravity (`sg`) used by default,
-`SugarGravityQuad()`.
+`SugarGravityQuad()`, from UnitfulBrewing: `°P = 668.72 sg - 463.37 - 205.35 sg²`.
+
+# References
+
+- This quadratic fit is attributed to Robbins (1975) in "On the relationship between Plato
+  and specific gravity", Brewer's Friend, 2012,
+  <https://www.brewersfriend.com/2012/10/31/on-the-relationship-between-plato-and-specific-gravity>;
+  the original publication was not found.
 """
 const DEFAULT_EQUIVALENCE = SugarGravityQuad()
 
@@ -17,6 +24,11 @@ const DEFAULT_EQUIVALENCE = SugarGravityQuad()
     WATER_DENSITY_20C
 
 Density of water at 20 °C, the reference temperature of the Plato tables (sg 20/20).
+
+# References
+
+- G. S. Kell, "Density, thermal expansivity, and compressibility of liquid water from 0° to
+  150 °C", *J. Chem. Eng. Data* 20 (1975) 97–105, <https://doi.org/10.1021/je60064a005>.
 """
 const WATER_DENSITY_20C = 0.998203u"kg/L"
 
