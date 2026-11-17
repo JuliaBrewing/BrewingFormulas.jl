@@ -1,0 +1,24 @@
+name = "BrewingFormulas"
+uuid = "a9505d62-7541-4c16-ab4a-19ef00b85701"
+version = "0.1.0"
+authors = ["Ricardo Rosa <rmsrosa@gmail.com>"]
+
+[deps]
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
+UnitfulBrewing = "0971afc3-6d60-4b49-b3a1-be0ef054b0bb"
+UnitfulEquivalences = "da9c4bc3-91c8-4f02-8a40-6b990d2a7e0c"
+
+[sources]
+UnitfulBrewing = {rev = "main", url = "https://github.com/JuliaBrewing/UnitfulBrewing.jl"}
+
+[compat]
+Unitful = "1.19"
+UnitfulBrewing = "0.1"
+UnitfulEquivalences = "0.2"
+julia = "1.11"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
