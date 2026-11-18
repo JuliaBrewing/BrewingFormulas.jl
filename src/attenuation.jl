@@ -30,7 +30,7 @@ _attenuation(oe, e) = oe == 0 ? 0.0 : 1 - e / oe
 The apparent attenuation `1 - AE / OE`, from the original gravity `og` and the (apparent)
 final gravity `fg`, with the extracts in °P.
 
-```julia
+```jldoctest
 julia> apparent_attenuation(15u"°P", 3.83u"°P")
 74.46666666666665 %
 ```
@@ -79,7 +79,7 @@ end
 The apparent final gravity, in the unit of `og`, reached from the original gravity `og`
 with the given apparent `attenuation` (a percentage or fraction): `AE = (1 - a) OE`.
 
-```julia
+```jldoctest
 julia> final_gravity(1.050u"sg", 75u"percent")
 1.0121194807789198 sg
 ```
@@ -99,7 +99,7 @@ by Balling's relation `ABW = (OE - RE) / (2.0665 - 0.010665 OE)`.
 - M. L. Hall, "Brew By the Numbers — Add Up What's in Your Beer", *Zymurgy*, Summer 1995,
   pp. 54–61 (Equation 16).
 
-```julia
+```jldoctest
 julia> abw(15u"°P", 3.83u"°P")
 4.799551015591193 %
 ```
@@ -129,7 +129,7 @@ with the given [`ABVModel`](@ref):
 
 See the models for the references.
 
-```julia
+```jldoctest
 julia> abv(1.050u"sg", 1.010u"sg")
 5.316690074810317 %
 
@@ -165,7 +165,7 @@ weight and RE in °P: 6.9 kcal per gram of alcohol and 4 kcal per gram of real e
   pp. 54–61, Equation 22, gives a variant per 12 US fl oz,
   `3.55 FG (4.08 RE + 7.1 ABW)`, which also counts the protein.
 
-```julia
+```jldoctest
 julia> calories(15u"°P", 3.83u"°P", 330u"mL")
 187.9616874164696 kcal
 ```

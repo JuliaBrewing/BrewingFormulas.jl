@@ -1,11 +1,16 @@
 # BrewingFormulas
 
+[![Docs](https://img.shields.io/badge/docs-dev-blue.svg)](https://JuliaBrewing.github.io/BrewingFormulas.jl/dev/) [![CI](https://github.com/JuliaBrewing/BrewingFormulas.jl/actions/workflows/ci.yml/badge.svg)](https://github.com/JuliaBrewing/BrewingFormulas.jl/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![GitHub repo size](https://img.shields.io/github/repo-size/JuliaBrewing/BrewingFormulas.jl)
+
 Formulas used in beer brewing calculations, as plain stateless Julia functions working
 with [Unitful.jl](https://github.com/JuliaPhysics/Unitful.jl) quantities and the brewing
 units of [UnitfulBrewing.jl](https://github.com/JuliaBrewing/UnitfulBrewing.jl).
 
 This package is still **under development** and not yet registered. It is the formula
 layer of the BrewQuiver brewing software.
+
+See the [documentation](https://JuliaBrewing.github.io/BrewingFormulas.jl/dev/) for all the
+formulas, with examples and references.
 
 ```julia
 julia> using Unitful, UnitfulBrewing, BrewingFormulas

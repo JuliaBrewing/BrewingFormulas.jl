@@ -9,7 +9,7 @@
 
 The `gravity` (in `°P`, `Brix`, `sg` or `gu`) in degrees Plato.
 
-```julia
+```jldoctest
 julia> plato(1.050u"sg")
 12.387625000000002 °P
 ```
@@ -21,7 +21,7 @@ plato(x; eq::Equivalence = DEFAULT_EQUIVALENCE) = _plato(x, eq) * u"°P"
 
 The `gravity` (in `°P`, `Brix`, `sg` or `gu`) as specific gravity, in `sg`.
 
-```julia
+```jldoctest
 julia> specific_gravity(12u"°P")
 1.0483700887844734 sg
 ```
@@ -39,7 +39,7 @@ The mass of extract dissolved in a `volume` of solution with the given `gravity`
 follows from the definitions of degrees Plato (percentage of extract by mass) and of specific
 gravity (density relative to water, both at 20 °C).
 
-```julia
+```jldoctest
 julia> extract_mass(20u"L", 12u"°P")
 2.5115668025638263 kg
 ```
@@ -83,7 +83,7 @@ The volume a solution with the given `volume` and `gravity` must have, after dil
 concentration, to reach the `target` gravity, keeping its extract. Add water if it is
 larger than `volume`, boil off otherwise.
 
-```julia
+```jldoctest
 julia> volume_for_gravity(20u"L", 1.060u"sg", 1.050u"sg")
 24.027752581421268 L
 ```
@@ -116,7 +116,7 @@ mass or as a volume at 20 °C: `V = (m_w + mₑ) / (sg ρw)`, with `sg` the spec
 the solution. This is how the volume of a wort follows from the water and the extract
 dissolved from the grains.
 
-```julia
+```jldoctest
 julia> solution_volume(20u"L", 2.5u"kg")
 21.54110091391626 L
 ```
@@ -148,7 +148,7 @@ allows any calibration temperature.
 - C. Lyons, "Hydrometer Temperature Corrections", Homebrew Digest #963, 7 September 1992,
   <https://brewery.org/library/HydromCorr0992.html>.
 
-```julia
+```jldoctest
 julia> hydrometer_correction(1.046u"sg", 30u"°C")
 1.0484709600383841 sg
 ```
@@ -183,7 +183,7 @@ const SUCROSE_PPG = 46.214
 The potential of a fermentable, as the specific gravity of 1 lb in 1 US gallon (as in
 BeerJSON), from its extract `yield` relative to sucrose (a percentage or fraction).
 
-```julia
+```jldoctest
 julia> potential_from_yield(80u"percent")
 1.0369712 sg
 ```
@@ -205,7 +205,7 @@ yield_from_potential(potential; eq::Equivalence = DEFAULT_EQUIVALENCE) =
 The maximum mass of extract obtainable from a `mass` of fermentable with the given extract
 `yield` on dry basis and `moisture` content (percentages or fractions).
 
-```julia
+```jldoctest
 julia> potential_extract(5u"kg", 80u"percent"; moisture = 4u"percent")
 3.84 kg
 ```

@@ -18,7 +18,7 @@ balance `T_w = T + (c_g m_g / m_w) (T - T_g)`.
 - J. Palmer, *How to Brew*, chapter "The Methods of Mashing", initial infusion equation
   `T_w = (0.2 / r)(T - T_g) + T`, with the ratio `r` in qt/lb, <https://howtobrew.com>.
 
-```julia
+```jldoctest
 julia> strike_temperature(67u"°C", 20u"°C", 15u"L", 5u"kg")
 73.2779481394733 °C
 ```

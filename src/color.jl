@@ -13,7 +13,7 @@ given `color` (in `°L`, `SRM` or `EBC`) in a `volume` of wort. With a `bill`, a
 - D. Morey, "Approximating SRM Beer Color of Homebrew Based on Recipe Formulation", 2015,
   <https://bwelman.github.io/bier/beer-color/beer-color.html>.
 
-```julia
+```jldoctest
 julia> mcu(4u"kg", 3u"°L", 20u"L")
 5.007242671211599
 ```
@@ -32,7 +32,7 @@ mcu(bill, volume::Unitful.Volume) = sum((mcu(m, c, volume) for (m, c) in bill); 
 The color, in `SRM`, of a wort with the given malt color units `mcu`, with the given
 [`ColorModel`](@ref).
 
-```julia
+```jldoctest
 julia> srm(10)
 7.239807780133753 SRM
 ```
