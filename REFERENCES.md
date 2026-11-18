@@ -44,6 +44,10 @@ verified for this package:
 | Residual CO₂ | `residual_co2` | [Hall1995] Eq. 26 | no | original |
 | Priming sugar | `priming_sugar`, `co2_yield` | stoichiometry; compare [Hall1995] Eq. 29 (anhydrous glucose) | no | original (Hall) |
 | Force carbonation pressure | `carbonation_pressure`, `carbonation_level` | fit to carbonation charts used by most calculators | no | not found |
+| Ions of salts, alkalinity, hardness, mEq | `ions`, `alkalinity`, `calcium_hardness`, `magnesium_hardness`, `milliequivalents` | stoichiometry and equivalent weights, IUPAC standard atomic weights | no | — |
+| Residual alkalinity | `residual_alkalinity` | Kolbach (1953), as given in [PalmerKaminski2013], [BYOpH] and [MEBAKRA]; the original paper was not found | no | secondary |
+| Acids: dissociation | `acid_milliequivalents` | pKa of lactic (3.86) and phosphoric acid (2.15, 7.20, 12.35), [CRC]; the densities of the solutions are typical values | no | secondary |
+| Mash pH, balance of charges | `mash_ph` | model of Troester (2009) and deLange, as described in [Palmer2016]; the defaults of 5.7 (pale malt in distilled water) and 40 mEq/(kg pH) are rules of thumb; the original papers were not found | no | secondary |
 | Pitch rates 0.75 / 1.5 | `pitch_cells` | G. Fix, as in [White2010] | no | secondary |
 | Thermal contraction, evaporation | `volume_at_temperature`, `evaporated_volume` | [Kell1975]; definitions | — | — |
 
@@ -69,6 +73,11 @@ verified for this package:
   <https://doi.org/10.1021/je60064a005>.
 - **[Lyons1992]** C. Lyons, "Hydrometer Temperature Corrections", Homebrew Digest #963,
   7 September 1992, <https://brewery.org/library/HydromCorr0992.html>.
+- **[BYOpH]** "The Power of pH", *Brew Your Own*, <https://byo.com/?p=8960>.
+- **[CRC]** *CRC Handbook of Chemistry and Physics*, dissociation constants of organic and
+  inorganic acids in aqueous solution.
+- **[MEBAKRA]** MEBAK, method W-030.01.900, "Residual Alkalinity in Brewing Liquor",
+  <https://www.mebak.org/en/methode/w-030-01-900/residual-alkalinity-in-brewing-liquor/2988>.
 - **[Malowicki2005]** M. G. Malowicki and T. H. Shellhammer, "Isomerization and Degradation
   Kinetics of Hop (*Humulus lupulus*) Acids in a Model Wort-Boiling System", *J. Agric.
   Food Chem.* 53 (2005) 4434–4439, <https://doi.org/10.1021/jf0481296>.
@@ -80,6 +89,13 @@ verified for this package:
   Brewers Publications, 2003.
 - **[Oliver2011]** G. Oliver (ed.), *The Oxford Companion to Beer*, Oxford University Press,
   2011.
+- **[Palmer2016]** J. Palmer, "And Plan B: Exploring the effect of residual alkalinity",
+  ASBC Annual Meeting 2016,
+  <https://www.asbcnet.org/events/archives/2016/proceedings/Documents/GC_Water_Palmer.pdf>,
+  presenting the work of K. Troester ("The Effect of Brewing Water and Grist Composition on
+  the pH of the Mash", braukaiser.com, 2009) and A. J. deLange.
+- **[PalmerKaminski2013]** J. Palmer and C. Kaminski, *Water: A Comprehensive Guide for
+  Brewers*, Brewers Publications, 2013.
 - **[Palmer]** J. Palmer, *How to Brew*, chapter "The Methods of Mashing",
   <https://howtobrew.com>.
 - **[Pyle]** N. Pyle, Hops FAQ, <http://www.realbeer.com/hops/FAQ.html> (the realbeer.com

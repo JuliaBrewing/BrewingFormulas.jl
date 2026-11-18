@@ -43,6 +43,7 @@ makedocs(;
             "Boil and volumes" => "boil.md",
             "Carbonation" => "carbonation.md",
             "Yeast" => "yeast.md",
+            "Water" => "water.md",
         ],
         "References" => "references.md",
     ],

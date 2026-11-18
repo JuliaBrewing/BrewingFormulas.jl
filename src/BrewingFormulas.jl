@@ -43,6 +43,7 @@ include("mash.jl")
 include("boil.jl")
 include("carbonation.jl")
 include("yeast.jl")
+include("water.jl")
 
 # models
 export AbstractModel, BitternessModel, ColorModel, ABVModel, RefractometerModel
@@ -82,5 +83,12 @@ export residual_co2, priming_sugar, carbonation_pressure, carbonation_level
 
 # yeast
 export pitch_cells
+
+# water chemistry
+export alkalinity, calcium_hardness, magnesium_hardness, milliequivalents, residual_alkalinity
+export AbstractSalt, Gypsum, CalciumChloride, EpsomSalt, MagnesiumChloride, TableSalt,
+    BakingSoda, Chalk, SlakedLime, ions
+export AbstractAcid, LacticAcid, PhosphoricAcid, acid_milliequivalents
+export BASE_MALT_DI_PH, MALT_BUFFERING, mash_ph
 
 end # module

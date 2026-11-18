@@ -194,6 +194,54 @@ end
     @test carbonation_level(1u"bar", 4u"°C") ≈ carbonation_level(uconvert(u"psi", 1u"bar"), 4u"°C")
 end
 
+@testset "Water" begin
+    # alkalinity, hardness and Kolbach's residual alkalinity, in mg/L as CaCO₃
+    @test alkalinity(61.0168u"mg/L") ≈ 50.0435u"mg/L" rtol = 1e-4        # 1 mEq/L
+    @test alkalinity(100u"ppm") ≈ alkalinity(100u"mg/L")
+    @test milliequivalents(alkalinity(61.0168u"mg/L")) ≈ 1 rtol = 1e-4
+    @test calcium_hardness(40.078u"mg/L") ≈ 100.087u"mg/L" rtol = 1e-4     # 1 mmol/L of Ca
+    @test magnesium_hardness(24.305u"mg/L") ≈ 100.087u"mg/L" rtol = 1e-4
+    @test residual_alkalinity(100u"mg/L", 0u"mg/L", 0u"mg/L") ≈ 100u"mg/L"
+    @test residual_alkalinity(0u"mg/L", 70.0u"mg/L", 0u"mg/L") ≈ -calcium_hardness(70u"mg/L") / 3.5
+    @test residual_alkalinity(0u"mg/L", 0u"mg/L", 7u"mg/L") ≈ -magnesium_hardness(1u"mg/L")
+    @test_throws ArgumentError alkalinity(100)
+
+    # the ions of the salts: per gram per US gallon, the usual brewing figures
+    pergal(salt, ion) = ustrip(u"mg/L", getfield(ions(salt, 1u"g", 1u"gal"), ion))
+    @test pergal(Gypsum(), :calcium) ≈ 61.5 rtol = 1e-2
+    @test pergal(Gypsum(), :sulfate) ≈ 147.4 rtol = 1e-2
+    @test pergal(CalciumChloride(), :calcium) ≈ 72.0 rtol = 1e-2
+    @test pergal(EpsomSalt(), :magnesium) ≈ 26.1 rtol = 1e-2
+    @test pergal(TableSalt(), :sodium) ≈ 103.9 rtol = 1e-2
+    @test pergal(BakingSoda(), :sodium) ≈ 72.3 rtol = 1e-2
+    @test ions(Chalk(), 1u"g", 1u"L").alkalinity ≈ 1000u"mg/L"            # by definition
+    @test ions(Gypsum(), 2u"g", 10u"L").calcium ≈ ions(Gypsum(), 1u"g", 5u"L").calcium
+    # the mass of the salt is all in its ions and water of crystallization
+    g = ions(Gypsum(), 1u"g", 1u"L")
+    @test ustrip(u"mg/L", g.calcium + g.sulfate) ≈ 1000 * (1 - 2 * 18.015 / 172.17) rtol = 1e-3
+
+    # acids: protons at the pH of the mash
+    @test acid_milliequivalents(LacticAcid(), 1u"mL") ≈ 1210 * 0.88 / 90.078 / (1 + 10^(3.86 - 5.4))
+    @test acid_milliequivalents(LacticAcid(), 1u"mL"; ph = 2.0) < acid_milliequivalents(LacticAcid(), 1u"mL")
+    @test acid_milliequivalents(PhosphoricAcid(), 1u"mL") ≈ 1050 * 0.10 / 97.994 rtol = 2e-2
+    @test acid_milliequivalents(PhosphoricAcid(; strength = 85u"percent", density = 1.685u"g/mL"), 1u"mL") ≈
+          1685 * 0.85 / 97.994 rtol = 2e-2
+
+    # the mash pH: distilled water gives the mean pH of the malts, by their buffering
+    malt(kg, ph = nothing, b = nothing) = (mass = kg * u"kg", di_ph = ph, buffering = b)
+    @test mash_ph([malt(5)], 15u"L", 0u"mg/L") ≈ BASE_MALT_DI_PH
+    @test mash_ph([malt(4, 5.8), malt(1, 4.8)], 15u"L", 0u"mg/L") ≈ (4 * 5.8 + 4.8) / 5
+    @test mash_ph([malt(4, 5.8, 40), malt(1, 4.8, 80)], 15u"L", 0u"mg/L") ≈
+          (4 * 40 * 5.8 + 80 * 4.8) / (4 * 40 + 80)
+    # about 0.1 pH per mEq/L of residual alkalinity at 4 L/kg (Palmer, ASBC 2016)
+    @test mash_ph([malt(5)], 20u"L", 50.0435u"mg/L") - BASE_MALT_DI_PH ≈ 0.1 rtol = 1e-3
+    # acids lower it, with their dissociation at the resulting pH
+    ph = mash_ph([malt(5)], 15u"L", 0u"mg/L"; acids = [LacticAcid() => 2u"mL"])
+    @test ph < BASE_MALT_DI_PH
+    @test ph ≈ BASE_MALT_DI_PH - acid_milliequivalents(LacticAcid(), 2u"mL"; ph) / 200 rtol = 1e-9
+    @test_throws ArgumentError mash_ph([], 15u"L", 0u"mg/L")
+end
+
 @testset "Yeast" begin
     @test pitch_cells(20u"L", 12u"°P") ≈ 1.8e11
     @test pitch_cells(20u"L", 12u"°P"; rate = 1.5) ≈ 3.6e11
