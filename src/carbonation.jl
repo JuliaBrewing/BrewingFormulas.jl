@@ -53,7 +53,7 @@ highest temperature reached after fermentation), at 1 atm:
 - M. L. Hall, "Brew By the Numbers — Add Up What's in Your Beer", *Zymurgy*, Summer 1995,
   pp. 54–61, Equation 26.
 
-```julia
+```jldoctest
 julia> residual_co2(20u"°C")
 0.8614871999999993 vols
 ```
@@ -79,7 +79,7 @@ usually sold, which needs about 10% more. Use [`Glucose`](@ref) for Hall's value
 - M. L. Hall, "Brew By the Numbers — Add Up What's in Your Beer", *Zymurgy*, Summer 1995,
   pp. 54–61, Equation 29.
 
-```julia
+```jldoctest
 julia> priming_sugar(CornSugar(), 20u"L", 2.5u"vols", 20u"°C")
 145.86469026359262 g
 ```
@@ -100,7 +100,7 @@ brewing calculators (`T` in °F, `V` in vols, `P` in psig):
 
     P = -16.6999 - 0.0101059 T + 0.00116512 T² + 0.173354 T V + 4.24267 V - 0.0684226 V².
 
-```julia
+```jldoctest
 julia> carbonation_pressure(2.5u"vols", 38u"°F")
 11.246172830000003 psi
 ```

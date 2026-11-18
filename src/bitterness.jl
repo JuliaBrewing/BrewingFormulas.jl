@@ -10,7 +10,7 @@
 The fraction of alpha acids isomerized in a wort of the given (boil) `gravity` after boiling
 for `time`, with the given [`BitternessModel`](@ref); see the models for the references.
 
-```julia
+```jldoctest
 julia> utilization(1.050u"sg", 60u"minute")
 0.2306640772510991
 ```
@@ -63,7 +63,7 @@ The bitterness, in `IBU`, of a `volume` of wort with the mass `isoalpha` of iso-
 alpha acid content `alpha` boiled for `time` in a wort of the given `gravity`, as in
 [`isomerized_alpha_acids`](@ref).
 
-```julia
+```jldoctest
 julia> ibu(30u"g", 10u"percent", 1.050u"sg", 60u"minute", 20u"L")
 34.59961158766487 IBU
 ```

@@ -11,7 +11,7 @@ valid from 0 to 150 °C.
 - G. S. Kell, "Density, thermal expansivity, and compressibility of liquid water from 0° to
   150 °C", *J. Chem. Eng. Data* 20 (1975) 97–105, <https://doi.org/10.1021/je60064a005>.
 
-```julia
+```jldoctest
 julia> water_density(20u"°C")
 0.9982041322005837 kg L⁻¹
 ```
@@ -29,7 +29,7 @@ end
 The volume, at temperature `to`, of a `volume` of liquid measured at temperature `from`,
 taking its thermal expansion as that of water. E.g. the shrinkage of a wort when cooled.
 
-```julia
+```jldoctest
 julia> volume_at_temperature(25u"L", 100u"°C", 20u"°C")
 24.002196197557904 L
 ```

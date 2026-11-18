@@ -27,7 +27,7 @@ corrected by the wort correction factor `wcf`, with Sean Terrill's fits
   <http://seanterrill.com/2011/04/07/refractometer-fg-results/> (cited by the Python
   BrewQuiver).
 
-```julia
+```jldoctest
 julia> refractometer_final_gravity(12u"Brix", 6.5u"Brix")
 1.0129859456476515 sg
 ```
