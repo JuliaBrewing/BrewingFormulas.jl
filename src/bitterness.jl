@@ -46,8 +46,8 @@ Shellhammer: `k = 7.9 × 10¹¹ exp(-11858 K / T)` per minute, about 0.0125 per 
   from this paper in brewing calculators; they were not checked against the paper itself.
 
 ```jldoctest
-julia> isomerization_rate(100u"°C")
-0.01249025501937107 minute^-1
+julia> ustrip(u"minute^-1", isomerization_rate(100u"°C"))   # per minute, at 100 °C
+0.01249025501937107
 ```
 """
 isomerization_rate(temperature::Unitful.Temperature) =
