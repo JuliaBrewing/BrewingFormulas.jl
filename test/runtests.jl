@@ -121,6 +121,15 @@ end
 end
 
 @testset "Bitterness" begin
+    # isomerization below boiling (Malowicki and Shellhammer)
+    @test isomerization_rate(100u"°C") ≈ 0.0125u"minute^-1" rtol = 1e-2
+    @test isomerization_factor(100u"°C") ≈ 1
+    @test isomerization_factor(212u"°F") ≈ 1
+    @test isomerization_factor(96u"°C") ≈ 0.71 rtol = 1e-2
+    @test isomerization_factor(90u"°C") ≈ 0.42 rtol = 1e-2
+    @test isomerization_factor(80u"°C") ≈ isomerization_rate(80u"°C") / isomerization_rate(100u"°C")
+    @test isomerization_factor(80u"°C"; reference = 80u"°C") ≈ 1
+    @test isomerization_factor(50u"°C") < 0.01
     @test utilization(1.050u"sg", 60u"minute") ≈ 0.2307 rtol = 1e-3   # Tinseth's table
     @test utilization(1.050u"sg", 1u"hr") ≈ utilization(1.050u"sg", 60u"minute")
     @test utilization(1.050u"sg", 0u"minute") == 0
