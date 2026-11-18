@@ -35,6 +35,7 @@ verified for this package:
 | SRM → RGB table | `srm_rgb`, `srm_hex` | unknown | no | not found |
 | Tinseth utilization | `Tinseth` | [Tinseth], [Pyle] | **yes** ([Pyle]) | secondary |
 | Rager utilization (tanh fit) | `Rager` | table and gravity adjustment [Rager1990]; tanh fit in [Pyle] | **yes** ([Pyle]) | secondary |
+| Isomerization rate (Arrhenius), relative rate below boiling | `isomerization_rate`, `isomerization_factor` | [Malowicki2005], constants as quoted by brewing calculators; they reproduce the relative rates quoted in [MTFhops] at 96 °C (72%) and 90 °C (43%), not its 17% at 82 °C (here 20%) | no | not found (constants) |
 | Pellet factor +10% | `factor` keyword (BrewQuiver: `HOP_FORM_FACTORS`) | homebrewing convention, not part of Tinseth's model | no | not found |
 | IBU = 1 mg/L of iso-alpha acids | `ibu` | usual approximation | — | — |
 | Strike temperature, infusion | `strike_temperature`, `infusion_volume` | [Palmer] | no | secondary |
@@ -68,6 +69,11 @@ verified for this package:
   <https://doi.org/10.1021/je60064a005>.
 - **[Lyons1992]** C. Lyons, "Hydrometer Temperature Corrections", Homebrew Digest #963,
   7 September 1992, <https://brewery.org/library/HydromCorr0992.html>.
+- **[Malowicki2005]** M. G. Malowicki and T. H. Shellhammer, "Isomerization and Degradation
+  Kinetics of Hop (*Humulus lupulus*) Acids in a Model Wort-Boiling System", *J. Agric.
+  Food Chem.* 53 (2005) 4434–4439, <https://doi.org/10.1021/jf0481296>.
+- **[MTFhops]** "Hops", Milk The Funk Wiki, section on isomerization below boiling,
+  <https://www.milkthefunk.com/wiki/Hops>.
 - **[Morey2015]** D. Morey, "Approximating SRM Beer Color of Homebrew Based on Recipe
   Formulation", 2015, <https://bwelman.github.io/bier/beer-color/beer-color.html>.
 - **[Noonan2003]** G. J. Noonan, *New Brewing Lager Beer*, revised and expanded edition,

@@ -1,6 +1,6 @@
 name = "BrewingFormulas"
 uuid = "a9505d62-7541-4c16-ab4a-19ef00b85701"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Ricardo Rosa <rmsrosa@gmail.com>"]
 
 [deps]

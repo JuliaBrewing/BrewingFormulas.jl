@@ -66,7 +66,8 @@ export refractometer_gravity, refractometer_final_gravity
 export mcu, srm, wort_color, srm_rgb, srm_hex
 
 # bitterness
-export utilization, alpha_acid_mass, isomerized_alpha_acids, ibu
+export utilization, isomerization_rate, isomerization_factor, alpha_acid_mass,
+    isomerized_alpha_acids, ibu
 
 # mash
 export strike_temperature, infusion_volume, mash_thickness, mash_volume
